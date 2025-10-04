@@ -271,6 +271,13 @@ class FilesSampleWriter:
         """Write sample to disk"""
         if img_str is not None:
             filename = f"{self.subfolder}/{key}.{self.encode_format}"
+            if not os.path.isfile(filename):
+                with self.fs.open(filename, "wb") as f:
+                    f.write(img_str)
+        img_str = None
+                    
+        if img_str is not None:
+            filename = f"{self.subfolder}/{key}.{self.encode_format}"
             with self.fs.open(filename, "wb") as f:
                 f.write(img_str)
             if self.save_caption:
